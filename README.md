@@ -40,12 +40,12 @@ Follow these steps to run the game locally on your device 👇
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/colorsense.git
+   git clone https://github.com/ANACONDAJUTS95/color-blindness-game
    ```
 
 2. **Navigate to the project folder**
    ```bash
-   cd colorsense
+   cd color-blindness-game
    ```
 
 3. **Install dependencies**
