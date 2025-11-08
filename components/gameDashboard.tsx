@@ -213,6 +213,25 @@ export function GameDashboard({ isVisible, onRestart }: GameDashboardProps) {
                         onComplete={() => {
                           if (!gameOver && isSelectable) {
                             setIsSelectable(false);
+                            
+                            // Track timeout by color - user struggled to identify this color
+                            const currentColor = COLORS_BY_LEVEL[currentColorSet].name;
+                            setColorMistakes(prev => {
+                              const existingIndex = prev.findIndex(m => m.color === currentColor);
+                              const newMistakes = [...prev];
+                              
+                              if (existingIndex >= 0) {
+                                newMistakes[existingIndex] = {
+                                  ...newMistakes[existingIndex],
+                                  count: newMistakes[existingIndex].count + 1
+                                };
+                              } else {
+                                newMistakes.push({ color: currentColor, count: 1 });
+                              }
+                              
+                              return newMistakes;
+                            });
+                            
                             // Handle timeout - increment mistakes
                             setMistakes(prevMistakes => {
                               const newMistakes = prevMistakes + 1;
@@ -221,6 +240,7 @@ export function GameDashboard({ isVisible, onRestart }: GameDashboardProps) {
                               }
                               return newMistakes;
                             });
+                            
                             // Instantly start next round
                             if (!gameOver) {
                               startNewRound();
